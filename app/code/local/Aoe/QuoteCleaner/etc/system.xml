@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<sections>
+		<system>
+			<groups>
+				<quotecleaner translate="label">
+					<label>Quote Cleaning</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>200</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>0</show_in_website>
+					<show_in_store>0</show_in_store>
+					<fields>
+						<scheduler_cron_expr>
+							<label>Clean old quotes cron expression</label>
+							<comment>Cron expressions. (E.g. "25 * * * *")</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+						</scheduler_cron_expr>
+						<clean_quoter_older_than>
+							<label>Clean quotes older than</label>
+							<comment>In days. (Minimum number of days is 7)</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+						</clean_quoter_older_than>
+						<limit>
+							<label>Limit number of quotes to clear per cron run</label>
+							<comment>(Maximum number is 50000)</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+						</limit>
+					</fields>
+				</quotecleaner>
+			</groups>
+		</system>
+	</sections>
+</config>

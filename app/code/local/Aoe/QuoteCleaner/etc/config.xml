@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<modules>
+		<Aoe_QuoteCleaner>
+			<version>0.1.0</version>
+		</Aoe_QuoteCleaner>
+	</modules>
+
+	<global>
+		<helpers>
+			<aoe_quotecleaner>
+				<class>Aoe_QuoteCleaner_Helper</class>
+			</aoe_quotecleaner>
+		</helpers>
+		<models>
+			<aoe_quotecleaner>
+				<class>Aoe_QuoteCleaner_Model</class>
+			</aoe_quotecleaner>
+		</models>
+	</global>
+
+	<crontab>
+		<jobs>
+			<aoequotecleaner>
+				<schedule>
+					<config_path>system/quotecleaner/scheduler_cron_expr</config_path>
+				</schedule>
+				<run><model>aoe_quotecleaner/cleaner::clean</model></run>
+			</aoequotecleaner>
+		</jobs>
+	</crontab>
+
+	<default>
+		<system>
+			<quotecleaner>
+				<scheduler_cron_expr>25 * * * *</scheduler_cron_expr>
+				<clean_quoter_older_than>10</clean_quoter_older_than>
+				<limit>10000</limit>
+			</quotecleaner>
+		</system>
+	</default>
+
+</config>

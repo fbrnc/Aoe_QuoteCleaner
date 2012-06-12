@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<modules>
+		<Aoe_QuoteCleaner>
+			<codePool>local</codePool>
+			<active>true</active>
+		</Aoe_QuoteCleaner>
+	</modules>
+</config>
