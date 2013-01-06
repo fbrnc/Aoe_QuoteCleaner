@@ -1,0 +1,16 @@
+{
+    "name":"fbrnc/aoe_quotecleaner",
+    "type":"magento-module",
+    "license":"OSL-3.0",
+    "homepage":"https://github.com/fbrnc/Aoe_QuoteCleaner",
+    "description":"Cronjob to remove old quotes for Magento.",
+    "authors":[
+        {
+            "name":"Fabrizio Branca",
+            "email":"mail@{firstname}-{lastname}.de"
+        }
+    ],
+    "require":{
+        "magento-hackathon/magento-composer-installer":"dev-master"
+    }
+}
