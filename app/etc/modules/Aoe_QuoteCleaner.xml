@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Aoe_QuoteCleaner>
-			<codePool>local</codePool>
+			<codePool>community</codePool>
 			<active>true</active>
 		</Aoe_QuoteCleaner>
 	</modules>
