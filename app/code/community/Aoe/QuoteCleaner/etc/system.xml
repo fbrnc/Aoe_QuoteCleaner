@@ -21,7 +21,7 @@
 							<show_in_store>0</show_in_store>
 						</scheduler_cron_expr>
 						<clean_quoter_older_than>
-							<label>Clean quotes older than</label>
+							<label>Clean customer quotes older than</label>
 							<comment>In days. (Minimum number of days is 7)</comment>
 							<frontend_type>text</frontend_type>
 							<sort_order>20</sort_order>
@@ -29,11 +29,20 @@
 							<show_in_website>0</show_in_website>
 							<show_in_store>0</show_in_store>
 						</clean_quoter_older_than>
+						<clean_anonymous_quotes_older_than>
+							<label>Clean anonymous quotes older than</label>
+							<comment>In days. (Minimum number of days is 7)</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+						</clean_anonymous_quotes_older_than>
 						<limit>
 							<label>Limit number of quotes to clear per cron run</label>
 							<comment>(Maximum number is 50000)</comment>
 							<frontend_type>text</frontend_type>
-							<sort_order>20</sort_order>
+							<sort_order>40</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>0</show_in_website>
 							<show_in_store>0</show_in_store>

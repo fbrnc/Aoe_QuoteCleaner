@@ -34,7 +34,8 @@
 		<system>
 			<quotecleaner>
 				<scheduler_cron_expr>25 * * * *</scheduler_cron_expr>
-				<clean_quoter_older_than>10</clean_quoter_older_than>
+				<clean_quoter_older_than>60</clean_quoter_older_than>
+				<clean_anonymous_quotes_older_than>30</clean_anonymous_quotes_older_than>
 				<limit>10000</limit>
 			</quotecleaner>
 		</system>

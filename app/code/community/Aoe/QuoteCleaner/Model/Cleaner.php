@@ -10,7 +10,8 @@ class Aoe_QuoteCleaner_Model_Cleaner {
 	 * @return void
 	 */
 	public function clean() {
-		$startTime = time();
+
+		$report = array();
 
 		$limit = intval(Mage::getStoreConfig('system/quotecleaner/limit'));
 		$limit = min($limit, 50000);
@@ -21,19 +22,36 @@ class Aoe_QuoteCleaner_Model_Cleaner {
 		$writeConnection = Mage::getSingleton('core/resource')->getConnection('core_write'); /* @var $writeConnection Varien_Db_Adapter_Pdo_Mysql */
 
 		$tableName = Mage::getSingleton('core/resource')->getTableName('sales/quote');
+		$tableName = $writeConnection->quoteIdentifier($tableName, true);
 
-		$sql = sprintf('DELETE FROM %s WHERE updated_at < DATE_SUB(Now(), INTERVAL %s DAY) LIMIT %s',
-			$writeConnection->quoteIdentifier($tableName, true),
+
+
+		// customer quotes
+		$startTime = time();
+		$sql = sprintf('DELETE FROM %s WHERE NOT ISNULL(customer_id) AND updated_at < DATE_SUB(Now(), INTERVAL %s DAY) LIMIT %s',
+			$tableName,
 			$olderThan,
 			$limit
 		);
-
 		$stmt = $writeConnection->query($sql);
-		$rowCount = $stmt->rowCount();
+		$report['customer']['count'] = $stmt->rowCount();
+		$report['customer']['duration'] = time() - $startTime;
+		Mage::log('[QUOTECLEANER] Cleaning old customer quotes (duration: '.$report['customer']['duration'].', row count: '.$report['customer']['count'].')');
 
-		$duration = time() - $startTime;
-		Mage::log('[QUOTECLEANER] Cleaning old quotes (duration: '.$duration.', row count: '.$rowCount.')');
-		return $rowCount;
+		// anonymous quotes$startTime = time();
+		$sql = sprintf('DELETE FROM %s WHERE ISNULL(customer_id) AND updated_at < DATE_SUB(Now(), INTERVAL %s DAY) LIMIT %s',
+			$tableName,
+			$olderThan,
+			$limit
+		);
+		$stmt = $writeConnection->query($sql);
+		$report['anonymous']['count'] = $stmt->rowCount();
+		$report['anonymous']['duration'] = time() - $startTime;
+		Mage::log('[QUOTECLEANER] Cleaning old anonymous quotes (duration: '.$report['anonymous']['duration'].', row count: '.$report['anonymous']['count'].')');
+
+
+
+		return $report;
 	}
 
 }
