@@ -38,7 +38,10 @@ class Aoe_QuoteCleaner_Model_Cleaner {
 		$report['customer']['duration'] = time() - $startTime;
 		Mage::log('[QUOTECLEANER] Cleaning old customer quotes (duration: '.$report['customer']['duration'].', row count: '.$report['customer']['count'].')');
 
-		// anonymous quotes$startTime = time();
+		// anonymous quotes
+                $olderThan = intval(Mage::getStoreConfig('clean_anonymous_quotes_older_than'));
+                $olderThan = max($olderThan, 7);
+                $startTime = time();
 		$sql = sprintf('DELETE FROM %s WHERE ISNULL(customer_id) AND updated_at < DATE_SUB(Now(), INTERVAL %s DAY) LIMIT %s',
 			$tableName,
 			$olderThan,
