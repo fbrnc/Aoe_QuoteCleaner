@@ -16,9 +16,6 @@ class Aoe_QuoteCleaner_Model_Cleaner {
 		$limit = intval(Mage::getStoreConfig('system/quotecleaner/limit'));
 		$limit = min($limit, 50000);
 
-		$olderThan = intval(Mage::getStoreConfig('system/quotecleaner/clean_quoter_older_than'));
-		$olderThan = max($olderThan, 7);
-
 		$writeConnection = Mage::getSingleton('core/resource')->getConnection('core_write'); /* @var $writeConnection Varien_Db_Adapter_Pdo_Mysql */
 
 		$tableName = Mage::getSingleton('core/resource')->getTableName('sales/quote');
@@ -27,6 +24,9 @@ class Aoe_QuoteCleaner_Model_Cleaner {
 
 
 		// customer quotes
+        $olderThan = intval(Mage::getStoreConfig('system/quotecleaner/clean_quoter_older_than'));
+        $olderThan = max($olderThan, 7);
+
 		$startTime = time();
 		$sql = sprintf('DELETE FROM %s WHERE NOT ISNULL(customer_id) AND updated_at < DATE_SUB(Now(), INTERVAL %s DAY) LIMIT %s',
 			$tableName,
@@ -39,6 +39,9 @@ class Aoe_QuoteCleaner_Model_Cleaner {
 		Mage::log('[QUOTECLEANER] Cleaning old customer quotes (duration: '.$report['customer']['duration'].', row count: '.$report['customer']['count'].')');
 
 		// anonymous quotes$startTime = time();
+        $olderThan = intval(Mage::getStoreConfig('system/quotecleaner/clean_anonymous_quotes_older_than'));
+        $olderThan = max($olderThan, 7);
+
 		$sql = sprintf('DELETE FROM %s WHERE ISNULL(customer_id) AND updated_at < DATE_SUB(Now(), INTERVAL %s DAY) LIMIT %s',
 			$tableName,
 			$olderThan,
