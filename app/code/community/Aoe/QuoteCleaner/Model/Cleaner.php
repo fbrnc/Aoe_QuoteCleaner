@@ -28,7 +28,7 @@ class Aoe_QuoteCleaner_Model_Cleaner {
         $olderThan = max($olderThan, 7);
 
 		$startTime = time();
-		$sql = sprintf('DELETE FROM %s WHERE NOT ISNULL(customer_id) AND updated_at < DATE_SUB(Now(), INTERVAL %s DAY) LIMIT %s',
+		$sql = sprintf('DELETE FROM %s WHERE (NOT ISNULL(customer_id) AND customer_id != 0) AND updated_at < DATE_SUB(Now(), INTERVAL %s DAY) LIMIT %s',
 			$tableName,
 			$olderThan,
 			$limit
@@ -42,7 +42,7 @@ class Aoe_QuoteCleaner_Model_Cleaner {
         $olderThan = intval(Mage::getStoreConfig('system/quotecleaner/clean_anonymous_quotes_older_than'));
         $olderThan = max($olderThan, 7);
 
-		$sql = sprintf('DELETE FROM %s WHERE ISNULL(customer_id) AND updated_at < DATE_SUB(Now(), INTERVAL %s DAY) LIMIT %s',
+		$sql = sprintf('DELETE FROM %s WHERE (ISNULL(customer_id) OR customer_id = 0) AND updated_at < DATE_SUB(Now(), INTERVAL %s DAY) LIMIT %s',
 			$tableName,
 			$olderThan,
 			$limit
