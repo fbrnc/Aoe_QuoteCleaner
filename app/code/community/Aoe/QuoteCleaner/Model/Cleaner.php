@@ -6,15 +6,22 @@ class Aoe_QuoteCleaner_Model_Cleaner {
 	 * Clean old quote entries.
 	 * This method will be called via a Magento crontab task.
 	 *
-	 * @param void
+	 * @param Varien_Event_Observer $observer
+	 * @param int $quoteDeleteLimit
 	 * @return void
 	 */
-	public function clean() {
+	public function clean($observer = null, $quoteDeleteLimit = null) {
 
 		$report = array();
 
 		$limit = intval(Mage::getStoreConfig('system/quotecleaner/limit'));
-		$limit = min($limit, 50000);
+
+		//Differentiate between shell and crontab exec
+		if (false === is_null($quoteDeleteLimit)) {
+			$limit = min($quoteDeleteLimit, 50000);
+		} else {
+			$limit = min($limit, 50000);
+		}
 
 		$writeConnection = Mage::getSingleton('core/resource')->getConnection('core_write'); /* @var $writeConnection Varien_Db_Adapter_Pdo_Mysql */
 
